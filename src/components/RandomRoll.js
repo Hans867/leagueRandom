@@ -3,7 +3,7 @@ import React from 'react';
 function RandomRoll({ champions, onRoll }) {
     return (
         <div>
-            <button onClick={onRoll}>Roll</button>
+            <button onClick={onRoll}>ROLL</button>
         </div>
     );
 }

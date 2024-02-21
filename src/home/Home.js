@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import RandomRoll from "../components/RandomRoll";
-import ChampionList from "../components/ChampionList"; // Corrected import path
+import ChampionList from "../repositories/ChampionsList";
+import './Home.css';
 
 function Home() {
     const [champions, setChampions] = useState([]);
+    const [rolledChampions, setRolledChampions] = useState([]);
     const [rollCount, setRollCount] = useState(1);
 
     useEffect(() => {
@@ -12,10 +14,7 @@ function Home() {
     }, []);
 
     const fetchChampions = () => {
-        // You can reuse the existing logic from ListChamps to fetch champions
-        // Alternatively, you can pass the fetching logic as a prop to RandomRoll
-        // to avoid fetching the data again
-        // For simplicity, I'll reuse the fetching logic here
+        // Fetch champions and set them in the state
         fetch('https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/champion.json')
             .then(response => response.json())
             .then(data => {
@@ -32,9 +31,12 @@ function Home() {
         const shuffledChampions = [...champions].sort(() => Math.random() - 0.5);
 
         // Get the first 'rollCount' champions from the shuffled array
-        const rolledChampions = shuffledChampions.slice(0, rollCount);
+        const newRolledChampions = shuffledChampions.slice(0, rollCount);
 
-        console.log('Rolled Champions:', rolledChampions);
+        // Update the rolled champions state
+        setRolledChampions(newRolledChampions);
+
+        console.log('Rolled Champions:', newRolledChampions);
     };
 
     const handleFilterChange = (event) => {
@@ -43,8 +45,8 @@ function Home() {
 
     return (
         <div>
-            <h1>League of Legends Random Champion Generator</h1>
-            <RandomRoll champions={champions} onRoll={handleRoll} />
+            <h1>MAZE leagueRandom</h1>
+            <RandomRoll onRoll={handleRoll} />
             <div>
                 <label>Number of Champions to Roll: </label>
                 <select onChange={handleFilterChange} value={rollCount}>
@@ -55,7 +57,7 @@ function Home() {
                     ))}
                 </select>
             </div>
-            <ChampionList champions={champions} />
+            <ChampionList champions={rolledChampions} />
             {/* Display additional components or content as needed */}
         </div>
     );
