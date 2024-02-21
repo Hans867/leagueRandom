@@ -1,4 +1,3 @@
-// ChampionList.js
 import React from 'react';
 
 function ChampionList({ champions }) {
@@ -19,3 +18,4 @@ function ChampionList({ champions }) {
 }
 
 export default ChampionList;
+

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Champs.css';
-import ChampionList from "../repositories/ChampionsList";
+import ChampionList from "../repositories/ChampionsList"; // Corrected import path
 
 function ListChamps() {
     const [champions, setChampions] = useState([]);
