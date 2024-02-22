@@ -1,0 +1,30 @@
+/* Navbar.css */
+.Navbar {
+    display: flex;
+    justify-content: center; /* Center the filters */
+    margin: 10px;
+}
+
+.filter-button {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    height: 2.5em; /* Set the initial size for larger screens */
+    width: 2.5em; /* Set the initial size for larger screens */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0.1em; /* Add a small margin between filters */
+}
+
+.filter-button:hover {
+    background-color: #383b44;
+}
+
+/* Adjust the size of filters for smaller screens */
+@media (max-width: 768px) {
+    .filter-button {
+        height: 2em; /* Adjust the size for smaller screens */
+        width: 2em; /* Adjust the size for smaller screens */
+    }
+}

@@ -1,11 +1,32 @@
-
+/* Home.css */
 h1 {
     text-align: center;
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
+/* Center the label and filter */
+.label-and-filter {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Apply styles to the filter select element */
+.filter-select {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+/* Center the ROLL button */
+.roll-button {
+    text-align: center;
+    margin-top: 20px; /* Add a gap between label/filter and ROLL button */
+}
+
 button {
+    display: block;
+    margin: 0 auto;
     padding: 10px 20px;
     font-size: 1rem;
     background-color: #282c34;
@@ -19,10 +40,19 @@ button:hover {
     background-color: #383b44;
 }
 
+.Champion-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.Champion-item {
+    text-align: center;
+    margin: 10px;
+}
 
 .champion-item img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
 }
-
