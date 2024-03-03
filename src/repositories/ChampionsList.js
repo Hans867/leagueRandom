@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ChampionList({ champions, onReroll }) {
+function ChampionList({ champions, onReroll, onLockIn }) {
     return (
         <div className="Champion-list">
             {champions.map((champion, index) => (
@@ -10,7 +10,10 @@ function ChampionList({ champions, onReroll }) {
                         src={`https://ddragon.leagueoflegends.com/cdn/14.1.1/img/champion/${champion.image.full}`}
                         alt={`${champion.name} Champion`}
                     />
-                    <button onClick={() => onReroll(champion, index)}>REROLL</button>
+                    <div className="button-container">
+                        <button onClick={() => onReroll(index)}>REROLL</button>
+                        <button onClick={() => onLockIn(champion, index)}>LOCK IN</button>
+                    </div>
                 </div>
             ))}
         </div>
