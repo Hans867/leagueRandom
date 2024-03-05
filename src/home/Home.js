@@ -1,14 +1,19 @@
+// Home.js
+
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import ChampionList from '../repositories/ChampionsList';
 import Navbar from "./Navbar";
 
-function Home() {
+const Home = () => {
     const [champions, setChampions] = useState([]);
     const [rolledChampions, setRolledChampions] = useState([]);
     const [rollCount, setRollCount] = useState(1);
     const [playerName, setPlayerName] = useState('');
     const [lockedChampions, setLockedChampions] = useState([]);
+    const [activeSide, setActiveSide] = useState('blue');
+    const [leftLockedChampions, setLeftLockedChampions] = useState([]);
+    const [rightLockedChampions, setRightLockedChampions] = useState([]);
 
     useEffect(() => {
         fetchChampions();
@@ -39,39 +44,59 @@ function Home() {
         const newRolledChampions = [...rolledChampions];
         let newChampion;
 
-        const isDuplicate = champion => champion.key === newChampion.key;
-
         do {
             newChampion = champions[Math.floor(Math.random() * champions.length)];
-        } while (newRolledChampions.some(isDuplicate));
+        } while (newRolledChampions.some(champion => champion.key === newChampion.key));
 
         newRolledChampions[index] = newChampion;
         setRolledChampions(newRolledChampions);
     };
-
 
     const handleLockIn = (champion, index) => {
         const newLockedChampion = {
             champion,
             playerName,
         };
-        setLockedChampions(prevLockedChampions => [...prevLockedChampions, newLockedChampion]);
+
+        if (activeSide === 'blue') {
+            setLeftLockedChampions(prev => [...prev, newLockedChampion]);
+        } else {
+            setRightLockedChampions(prev => [...prev, newLockedChampion]);
+        }
+
         setRolledChampions([]); // Reset rolled champions when locking in
         setPlayerName(''); // Reset player name when locking in
+    };
+
+    const switchActiveSide = side => {
+        setActiveSide(side);
     };
 
     return (
         <div>
             <h1>MAZE leagueRandom</h1>
-            <Navbar></Navbar>
+            <Navbar />
             <div id="gamerName">
-                <label ></label>
+                <button
+                    className={`lock-in-button blue ${activeSide === 'blue' ? 'active' : ''}`}
+                    onClick={() => switchActiveSide('blue')}
+                >
+                    Blue Side
+                </button>
+
                 <input
                     type="text"
                     placeholder="Enter your name"
                     value={playerName}
                     onChange={(e) => setPlayerName(e.target.value)}
                 />
+
+                <button
+                    className={`lock-in-button red ${activeSide === 'red' ? 'active' : ''}`}
+                    onClick={() => switchActiveSide('red')}
+                >
+                    Red Side
+                </button>
             </div>
             <div className="label-and-filter">
                 <label>Number of Champions to Roll: </label>
@@ -87,10 +112,24 @@ function Home() {
                 ROLL
             </button>
             <ChampionList champions={rolledChampions} onReroll={handleReroll} onLockIn={handleLockIn} />
-            {lockedChampions.length > 0 && (
-                <div className="locked-champions">
-                    <h2>Locked In</h2>
-                    {lockedChampions.map((lockedChampion, index) => (
+            {leftLockedChampions.length > 0 && (
+                <div className="locked-champions blue-side">
+                    <h2>Blue Side</h2>
+                    {leftLockedChampions.map((lockedChampion, index) => (
+                        <div key={index} className="locked-champion">
+                            <p>{` ${lockedChampion.playerName}`}</p>
+                            <img
+                                src={`https://ddragon.leagueoflegends.com/cdn/14.1.1/img/champion/${lockedChampion.champion.image.full}`}
+                                alt={`${lockedChampion.champion.name} Champion`}
+                            />
+                        </div>
+                    ))}
+                </div>
+            )}
+            {rightLockedChampions.length > 0 && (
+                <div className="locked-champions red-side">
+                    <h2>Red Side</h2>
+                    {rightLockedChampions.map((lockedChampion, index) => (
                         <div key={index} className="locked-champion">
                             <p>{` ${lockedChampion.playerName}`}</p>
                             <img
