@@ -4,6 +4,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100vh; /* Ensure the background covers the entire viewport height */
     position: relative;
 }
@@ -18,9 +19,8 @@ body {
 }
 
 h1 {
-    text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 h2 {
@@ -51,6 +51,7 @@ input {
     color: rgb(255, 255, 255);
     padding: 10px; /* Add some padding to make it visually appealing */
     border-radius: 5px; /* Add rounded corners if you like */
+
 }
 
 /* Apply styles to the filter select element */
@@ -168,14 +169,30 @@ button:hover {
     background-color: #282c34; /* Set the same color as the roll button */
 }
 
+.locked-champions {
+    display: flex;
+    flex-basis: 50%;
+}
 
 /* Add styles for the Blue Side and Red Side sections */
-.locked-champions.blue-side,
-.locked-champions.red-side {
+.locked-champions.both-side {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-between; /* Add space between Blue and Red Side */
     margin-top: 20px;
+}
+
+/* Updated styles for Blue Side */
+.locked-champions.blue-side {
+    align-items: flex-start;
+    flex-basis: 50%; /* Set the width to 50% of the container */
+    flex-direction: column;
+}
+
+/* Updated styles for Red Side */
+.locked-champions.red-side {
+    align-items: flex-end;
+    flex-basis: 50%; /* Set the width to 50% of the container */
+    flex-direction: column;
 }
 
 .locked-champions.blue-side h2 {
@@ -185,6 +202,7 @@ button:hover {
 .locked-champions.red-side h2 {
     color: #ff6961; /* Red color for the Red Side header */
 }
+
 
 
 

@@ -1,5 +1,3 @@
-// Home.js
-
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import ChampionList from '../repositories/ChampionsList';
@@ -74,14 +72,20 @@ const Home = () => {
 
     return (
         <div>
-            <h1>MAZE leagueRandom</h1>
+            <h1>
+                <img id="headline-image"
+                    src="./pictures/titlemazeleaguerandom.png"
+                    alt="MAZE LEAGUE RANDOM"
+                    style={{ width: '60%', height: 'auto' }}
+                />
+            </h1>
             <Navbar />
             <div id="gamerName">
                 <button
                     className={`lock-in-button blue ${activeSide === 'blue' ? 'active' : ''}`}
                     onClick={() => switchActiveSide('blue')}
                 >
-                    Blue Side
+                    BLUE
                 </button>
 
                 <input
@@ -95,11 +99,11 @@ const Home = () => {
                     className={`lock-in-button red ${activeSide === 'red' ? 'active' : ''}`}
                     onClick={() => switchActiveSide('red')}
                 >
-                    Red Side
+                    RED
                 </button>
             </div>
             <div className="label-and-filter">
-                <label>Number of Champions to Roll: </label>
+                <label>NUMBER OF CHAMPIONS TO ROLL </label>
                 <select className="filter-select" onChange={handleFilterChange} value={rollCount}>
                     {[1, 2, 3, 4, 5].map(count => (
                         <option key={count} value={count}>
@@ -111,7 +115,9 @@ const Home = () => {
             <button className="roll-button" onClick={handleRoll}>
                 ROLL
             </button>
+
             <ChampionList champions={rolledChampions} onReroll={handleReroll} onLockIn={handleLockIn} />
+            <div className="locked-champions both side">
             {leftLockedChampions.length > 0 && (
                 <div className="locked-champions blue-side">
                     <h2>Blue Side</h2>
@@ -140,6 +146,7 @@ const Home = () => {
                     ))}
                 </div>
             )}
+            </div>
         </div>
     );
 }
