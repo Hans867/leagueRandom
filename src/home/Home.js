@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 
 const Home = () => {
     const [champions, setChampions] = useState([]);
+    const [selectedFilter, setSelectedFilter] = useState('all');
     const [rolledChampions, setRolledChampions] = useState([]);
     const [rollCount, setRollCount] = useState(1);
     const [playerName, setPlayerName] = useState('');
@@ -16,6 +17,10 @@ const Home = () => {
     useEffect(() => {
         fetchChampions();
     }, []);
+
+    const handleFilterClick = (filter) => {
+        setSelectedFilter(filter);
+    };
 
     const fetchChampions = () => {
         fetch('https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/champion.json')

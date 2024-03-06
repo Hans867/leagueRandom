@@ -3,24 +3,43 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const filters = [
-    "https://cdn.mobalytics.gg/assets/common/icons/all-option.svg",
-    "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-top-faded.svg",
-    "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-jg-faded.svg",
-    "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-mid-faded.svg",
-    "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-bot-faded.svg",
-    "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-sup-faded.svg"
+    {
+        image: "https://cdn.mobalytics.gg/assets/common/icons/all-option.svg",
+        label: "All",
+    },
+    {
+        image: "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-top-faded.svg",
+        label: "Top",
+    },
+    {
+        image: "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-jg-faded.svg",
+        label: "Jungle",
+    },
+    {
+        image: "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-mid-faded.svg",
+        label: "Mid",
+    },
+    {
+        image: "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-bot-faded.svg",
+        label: "Bot",
+    },
+    {
+        image: "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-sup-faded.svg",
+        label: "Support",
+    },
 ];
 
-function Navbar() {
+function Navbar({ selectedFilter, onFilterClick }) {
     return (
         <div className="Navbar">
             {filters.map((filter, index) => (
-                <Link to={`/${index}`} key={index}>
-                    <button
-                        className="filter-button"
-                        style={{ backgroundImage: `url(${filter})` }}
-                    />
-                </Link>
+                <img
+                    key={index}
+                    className={`filter-button ${selectedFilter === index.toString() ? 'active' : ''}`}
+                    src={filter.image}
+                    alt={filter.label}
+                    onClick={() => onFilterClick(index.toString())}
+                />
             ))}
         </div>
     );

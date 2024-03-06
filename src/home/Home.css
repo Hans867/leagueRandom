@@ -25,6 +25,12 @@ h1 {
 
 h2 {
     color: #6fa6d6;
+    padding: 5px;
+}
+
+p {
+
+    text-align: center;
 }
 
 input {
@@ -87,13 +93,12 @@ button:hover {
 /* Container for REROLL and LOCK IN buttons */
 .button-container {
     display: flex;
-    justify-content: space-around; /* Adjust as needed */
-    margin-top: 10px; /* Add space between buttons and the image */
+    justify-content: space-around;
 }
 
 /* Style for both REROLL and LOCK IN buttons */
 .button-container button {
-    width: 80%; /* Make the buttons match the width of the image */
+    width: 80%;
     padding: 10px;
     font-size: 0.8rem;
     border: none;
@@ -122,18 +127,18 @@ button:hover {
 }
 
 .champion-item h3 {
-    background-color: #282c34; /* Choose your desired background color */
+    background-color: #282c34;
     color: rgb(255, 255, 255);
-    padding: 5px; /* Add padding to only surround the text */
-    border-radius: 5px; /* Add rounded corners */
+    padding: 5px;
+    border-radius: 5px;
     font-size: 0.9rem;
 }
 
 .champion-item {
     text-align: center;
     margin: 10px;
-    padding: 10px; /* Add padding to separate items */
-    border-radius: 5px; /* Add rounded corners */
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .champion-item img {
@@ -172,6 +177,7 @@ button:hover {
 .locked-champions {
     display: flex;
     flex-basis: 50%;
+    padding: 5px;
 }
 
 /* Add styles for the Blue Side and Red Side sections */
