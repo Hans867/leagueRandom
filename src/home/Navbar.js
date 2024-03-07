@@ -1,3 +1,4 @@
+// Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
@@ -21,7 +22,7 @@ const filters = [
     },
     {
         image: "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-bot-faded.svg",
-        label: "Bot",
+        label: "Bottom",
     },
     {
         image: "https://cdn.mobalytics.gg/assets/common/icons/lol-roles/16-sup-faded.svg",
@@ -35,10 +36,10 @@ function Navbar({ selectedFilter, onFilterClick }) {
             {filters.map((filter, index) => (
                 <img
                     key={index}
-                    className={`filter-button ${selectedFilter === index.toString() ? 'active' : ''}`}
+                    className={`filter-button ${selectedFilter === filter.label.toLowerCase() ? 'active' : ''}`}
                     src={filter.image}
                     alt={filter.label}
-                    onClick={() => onFilterClick(index.toString())}
+                    onClick={() => onFilterClick(filter.label.toLowerCase())}
                 />
             ))}
         </div>

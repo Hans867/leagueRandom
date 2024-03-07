@@ -129,10 +129,6 @@ const supportChampions = [
         // Other champion attributes...
     },
     {
-        name: "Sylas",
-        // Other champion attributes...
-    },
-    {
         name: "Tahm Kench",
         // Other champion attributes...
     },

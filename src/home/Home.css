@@ -201,6 +201,10 @@ button:hover {
     flex-direction: column;
 }
 
+.locked-champions.red-side.align-right {
+    align-items: flex-end;
+}
+
 .locked-champions.blue-side h2 {
     color: #6fa6d6; /* Blue color for the Blue Side header */
 }
@@ -208,7 +212,3 @@ button:hover {
 .locked-champions.red-side h2 {
     color: #ff6961; /* Red color for the Red Side header */
 }
-
-
-
-

@@ -48,19 +48,19 @@ const Home = () => {
 
         switch (selectedFilter) {
             case 'top':
-                filteredChampions = topChampions.map(championName => champions.find(champion => champion.name === championName));
+                filteredChampions = topChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
                 break;
             case 'jungle':
-                filteredChampions = jungleChampions.map(championName => champions.find(champion => champion.name === championName));
+                filteredChampions = jungleChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
                 break;
             case 'mid':
-                filteredChampions = midChampions.map(championName => champions.find(champion => champion.name === championName));
+                filteredChampions = midChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
                 break;
             case 'bottom':
-                filteredChampions = bottomChampions.map(championName => champions.find(champion => champion.name === championName));
+                filteredChampions = bottomChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
                 break;
             case 'support':
-                filteredChampions = supportChampions.map(championName => champions.find(champion => champion.name === championName));
+                filteredChampions = supportChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
                 break;
             default:
                 // If the default filter is 'all', use all champions
@@ -162,36 +162,37 @@ const Home = () => {
                 ROLL
             </button>
             <ChampionList champions={rolledChampions} onReroll={handleReroll} onLockIn={handleLockIn} />
-            <div className="locked-champions both side">
-            {leftLockedChampions.length > 0 && (
-                <div className="locked-champions blue-side">
-                    <h2>Blue Side</h2>
-                    {leftLockedChampions.map((lockedChampion, index) => (
-                        <div key={index} className="locked-champion">
-                            <p>{` ${lockedChampion.playerName}`}</p>
-                            <img
-                                src={`https://ddragon.leagueoflegends.com/cdn/14.1.1/img/champion/${lockedChampion.champion.image.full}`}
-                                alt={`${lockedChampion.champion.name} Champion`}
-                            />
-                        </div>
-                    ))}
-                </div>
-            )}
-            {rightLockedChampions.length > 0 && (
-                <div className="locked-champions red-side">
-                    <h2>Red Side</h2>
-                    {rightLockedChampions.map((lockedChampion, index) => (
-                        <div key={index} className="locked-champion">
-                            <p>{` ${lockedChampion.playerName}`}</p>
-                            <img
-                                src={`https://ddragon.leagueoflegends.com/cdn/14.1.1/img/champion/${lockedChampion.champion.image.full}`}
-                                alt={`${lockedChampion.champion.name} Champion`}
-                            />
-                        </div>
-                    ))}
-                </div>
-            )}
+            <div className="locked-champions both-side">
+                {leftLockedChampions.length > 0 && (
+                    <div className="locked-champions blue-side">
+                        <h2>Blue Side</h2>
+                        {leftLockedChampions.map((lockedChampion, index) => (
+                            <div key={index} className="locked-champion">
+                                <p>{` ${lockedChampion.playerName}`}</p>
+                                <img
+                                    src={`https://ddragon.leagueoflegends.com/cdn/14.1.1/img/champion/${lockedChampion.champion.image.full}`}
+                                    alt={`${lockedChampion.champion.name} Champion`}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {rightLockedChampions.length > 0 && (
+                    <div className={`locked-champions red-side${leftLockedChampions.length > 0 ? ' align-right' : ''}`}>
+                        <h2>Red Side</h2>
+                        {rightLockedChampions.map((lockedChampion, index) => (
+                            <div key={index} className="locked-champion">
+                                <p>{` ${lockedChampion.playerName}`}</p>
+                                <img
+                                    src={`https://ddragon.leagueoflegends.com/cdn/14.1.1/img/champion/${lockedChampion.champion.image.full}`}
+                                    alt={`${lockedChampion.champion.name} Champion`}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
+
         </div>
     );
 }
