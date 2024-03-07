@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './Home.css';
 import ChampionList from '../repositories/ChampionsList';
 import Navbar from "./Navbar";
+import topChampions from '../repositories/TopChampions';
+import jungleChampions from '../repositories/JungleChampions';
+import midChampions from '../repositories/MidChampions';
+import bottomChampions from '../repositories/ButtomChampions';
+import supportChampions from '../repositories/SupportChampions';
 
 const Home = () => {
     const [champions, setChampions] = useState([]);
@@ -18,29 +23,65 @@ const Home = () => {
         fetchChampions();
     }, []);
 
-    const handleFilterClick = (filter) => {
-        setSelectedFilter(filter);
+
+    const fetchChampions = async () => {
+        try {
+            const response = await fetch(
+                'https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/champion.json'
+            );
+            const data = await response.json();
+            const championData = Object.values(data.data);
+            setChampions(championData);
+        } catch (error) {
+            console.error('Error fetching champion data:', error);
+        }
     };
 
-    const fetchChampions = () => {
-        fetch('https://ddragon.leagueoflegends.com/cdn/14.1.1/data/en_US/champion.json')
-            .then(response => response.json())
-            .then(data => {
-                const championsData = data.data;
-                const championsArray = Object.values(championsData);
-                setChampions(championsArray);
-            })
-            .catch(error => console.error('Error fetching champions:', error));
+    const handleFilterClick = (filter) => {
+        setSelectedFilter(filter);
+        // Fetch champions based on the selected filter
+        fetchChampions(filter);
     };
 
     const handleRoll = () => {
-        const shuffledChampions = [...champions].sort(() => Math.random() - 0.5);
+        let filteredChampions = [];
+
+        switch (selectedFilter) {
+            case 'top':
+                filteredChampions = topChampions.map(championName => champions.find(champion => champion.name === championName));
+                break;
+            case 'jungle':
+                filteredChampions = jungleChampions.map(championName => champions.find(champion => champion.name === championName));
+                break;
+            case 'mid':
+                filteredChampions = midChampions.map(championName => champions.find(champion => champion.name === championName));
+                break;
+            case 'bottom':
+                filteredChampions = bottomChampions.map(championName => champions.find(champion => champion.name === championName));
+                break;
+            case 'support':
+                filteredChampions = supportChampions.map(championName => champions.find(champion => champion.name === championName));
+                break;
+            default:
+                // If the default filter is 'all', use all champions
+                filteredChampions = champions;
+                break;
+        }
+
+        // Filter out undefined entries
+        filteredChampions = filteredChampions.filter(Boolean);
+
+        const shuffledChampions = [...filteredChampions].sort(() => Math.random() - 0.5);
         const newRolledChampions = shuffledChampions.slice(0, rollCount);
         setRolledChampions(newRolledChampions);
     };
 
-    const handleFilterChange = event => {
-        setRollCount(parseInt(event.target.value, 10));
+    const handleFilterChange = (e) => {
+        const selectedFilter = e.target.value;
+        setSelectedFilter(selectedFilter);
+
+        // Fetch champions based on the selected filter
+        fetchChampions(selectedFilter);
     };
 
     const handleReroll = index => {
@@ -49,7 +90,7 @@ const Home = () => {
 
         do {
             newChampion = champions[Math.floor(Math.random() * champions.length)];
-        } while (newRolledChampions.some(champion => champion.key === newChampion.key));
+        } while (newRolledChampions.some(champion => champion.name === newChampion.name));
 
         newRolledChampions[index] = newChampion;
         setRolledChampions(newRolledChampions);
@@ -84,7 +125,7 @@ const Home = () => {
                     style={{ width: '60%', height: 'auto' }}
                 />
             </h1>
-            <Navbar />
+            <Navbar selectedFilter={selectedFilter} onFilterClick={handleFilterClick} />
             <div id="gamerName">
                 <button
                     className={`lock-in-button blue ${activeSide === 'blue' ? 'active' : ''}`}
@@ -109,7 +150,7 @@ const Home = () => {
             </div>
             <div className="label-and-filter">
                 <label>NUMBER OF CHAMPIONS TO ROLL </label>
-                <select className="filter-select" onChange={handleFilterChange} value={rollCount}>
+                <select className="filter-select" onChange={(e) => setRollCount(parseInt(e.target.value))} value={rollCount}>
                     {[1, 2, 3, 4, 5].map(count => (
                         <option key={count} value={count}>
                             {count}
@@ -120,7 +161,6 @@ const Home = () => {
             <button className="roll-button" onClick={handleRoll}>
                 ROLL
             </button>
-
             <ChampionList champions={rolledChampions} onReroll={handleReroll} onLockIn={handleLockIn} />
             <div className="locked-champions both side">
             {leftLockedChampions.length > 0 && (
