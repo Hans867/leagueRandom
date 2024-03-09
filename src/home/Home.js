@@ -14,7 +14,6 @@ const Home = () => {
     const [rolledChampions, setRolledChampions] = useState([]);
     const [rollCount, setRollCount] = useState(1);
     const [playerName, setPlayerName] = useState('');
-    const [lockedChampions, setLockedChampions] = useState([]);
     const [activeSide, setActiveSide] = useState('blue');
     const [leftLockedChampions, setLeftLockedChampions] = useState([]);
     const [rightLockedChampions, setRightLockedChampions] = useState([]);
@@ -75,7 +74,7 @@ const Home = () => {
         const newRolledChampions = shuffledChampions.slice(0, rollCount);
         setRolledChampions(newRolledChampions);
     };
-
+    /*
     const handleFilterChange = (e) => {
         const selectedFilter = e.target.value;
         setSelectedFilter(selectedFilter);
@@ -84,17 +83,53 @@ const Home = () => {
         fetchChampions(selectedFilter);
     };
 
-    const handleReroll = index => {
-        const newRolledChampions = [...rolledChampions];
-        let newChampion;
+     */
 
-        do {
-            newChampion = champions[Math.floor(Math.random() * champions.length)];
-        } while (newRolledChampions.some(champion => champion.name === newChampion.name));
+    const getRandomChampion = (filter) => {
+        let filteredChampions = [];
 
-        newRolledChampions[index] = newChampion;
-        setRolledChampions(newRolledChampions);
+        switch (filter) {
+            case 'top':
+                filteredChampions = topChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
+                break;
+            case 'jungle':
+                filteredChampions = jungleChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
+                break;
+            case 'mid':
+                filteredChampions = midChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
+                break;
+            case 'bottom':
+                filteredChampions = bottomChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
+                break;
+            case 'support':
+                filteredChampions = supportChampions.map(championObject => champions.find(champion => champion.name.toLowerCase() === championObject.name.toLowerCase()));
+                break;
+            default:
+                // If the default filter is 'all', use all champions
+                filteredChampions = champions;
+                break;
+        }
+
+        // Filter out undefined entries
+        filteredChampions = filteredChampions.filter(Boolean);
+
+        return filteredChampions[Math.floor(Math.random() * filteredChampions.length)];
     };
+
+    const handleReroll = index => {
+        setRolledChampions(prevRolledChampions => {
+            const newRolledChampions = [...prevRolledChampions];
+            let newChampion;
+
+            do {
+                newChampion = getRandomChampion(selectedFilter);
+            } while (newRolledChampions.some(champion => champion.name === newChampion.name));
+
+            newRolledChampions[index] = newChampion;
+            return newRolledChampions;
+        });
+    };
+
 
     const handleLockIn = (champion, index) => {
         const newLockedChampion = {

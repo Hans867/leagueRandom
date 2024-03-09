@@ -5,7 +5,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    height: 100vh; /* Ensure the background covers the entire viewport height */
+    height: 100vh;
     position: relative;
 }
 
@@ -15,12 +15,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 h1 {
     display: flex;
     justify-content: center;
+}
+
+
+/* Mobile-friendly styles for h1 */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
 }
 
 h2 {
@@ -29,8 +37,10 @@ h2 {
 }
 
 p {
-
     text-align: center;
+    margin: 5px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
 }
 
 input {
@@ -72,6 +82,15 @@ input {
 .roll-button {
     text-align: center;
     margin-top: 20px; /* Add a gap between label/filter and ROLL button */
+    margin-bottom: 10px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+
+}
+
+.roll-button:hover {
+    background-color: #383b44;
+
 }
 
 button {
@@ -127,18 +146,19 @@ button:hover {
 }
 
 .champion-item h3 {
-    background-color: #282c34;
-    color: rgb(255, 255, 255);
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 0.9rem;
+    color: rgb(161, 149, 0);
+    margin-top: 1px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
 }
 
 .champion-item {
+    background-color: #282c34;
     text-align: center;
     margin: 10px;
     padding: 10px;
     border-radius: 5px;
+
 }
 
 .champion-item img {
@@ -146,6 +166,7 @@ button:hover {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+    margin: 1px;
 }
 
 /* Add styles for the active lock-in button */
@@ -174,6 +195,13 @@ button:hover {
     background-color: #282c34; /* Set the same color as the roll button */
 }
 
+.locked-champion {
+    background-color: #282c34;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
 .locked-champions {
     display: flex;
     flex-basis: 50%;
@@ -199,11 +227,19 @@ button:hover {
     align-items: flex-end;
     flex-basis: 50%; /* Set the width to 50% of the container */
     flex-direction: column;
+    margin-left: auto; /* Push the content to the right */
 }
 
-.locked-champions.red-side.align-right {
-    align-items: flex-end;
+/* Ensure the first red champion goes all the way to the right */
+.locked-champions.red-side .locked-champion:first-child {
+    margin-left: 0; /* Reset the margin for the first child */
 }
+
+/* Margin for .locked-champions.both-side when only one side is locked */
+.locked-champions.both-side:not(:only-child) {
+    margin-right: 0; /* Adjust as needed */
+}
+
 
 .locked-champions.blue-side h2 {
     color: #6fa6d6; /* Blue color for the Blue Side header */
@@ -211,4 +247,5 @@ button:hover {
 
 .locked-champions.red-side h2 {
     color: #ff6961; /* Red color for the Red Side header */
+    padding-right: 27px;
 }
