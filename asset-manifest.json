@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/leagueRandom/static/css/main.1fc575a7.css",
+    "main.js": "/leagueRandom/static/js/main.057a7d43.js",
+    "static/js/453.354b28bc.chunk.js": "/leagueRandom/static/js/453.354b28bc.chunk.js",
+    "index.html": "/leagueRandom/index.html",
+    "main.1fc575a7.css.map": "/leagueRandom/static/css/main.1fc575a7.css.map",
+    "main.057a7d43.js.map": "/leagueRandom/static/js/main.057a7d43.js.map",
+    "453.354b28bc.chunk.js.map": "/leagueRandom/static/js/453.354b28bc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1fc575a7.css",
+    "static/js/main.057a7d43.js"
+  ]
+}
